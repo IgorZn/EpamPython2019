@@ -9,7 +9,9 @@
 
 def is_permutation(a: str, b: str) -> bool:
     # Нужно проверить, являются ли строчки 'a' и 'b' перестановками
+    return True if a == b and len(a) == len(b) else False
 
 
+assert is_permutation('baba', 'baba')
 assert is_permutation('baba', 'abab')
 assert is_permutation('abbba', 'abab')
