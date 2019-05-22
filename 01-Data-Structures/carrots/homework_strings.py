@@ -93,7 +93,18 @@ def count_nucleotides(dna):
                     if nucleotide == 'T':
                         HSGLTH1[nucleotide] += lines[i].strip().count(nucleotide)
 
-        print('A (HSBGPG) - ', HSBGPG['A'], ', A (HSGLTH1) - ', HSGLTH1['A'])
+        print(
+            'HSBGPG: ',
+            'A --', HSBGPG['A'],
+            'C --', HSBGPG['C'],
+            'G --', HSBGPG['G'],
+            'T --', HSBGPG['T'],
+            'HSGLTH1: ',
+            'A --', HSGLTH1['A'],
+            'C --', HSGLTH1['C'],
+            'G --', HSGLTH1['G'],
+            'T --', HSGLTH1['T']
+              )
 
     return ('A (HSBGPG) - ', HSBGPG['A'], ', A (HSGLTH1) - ', HSGLTH1['A'])
 
