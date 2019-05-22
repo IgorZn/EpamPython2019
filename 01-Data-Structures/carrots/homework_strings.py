@@ -106,7 +106,7 @@ def count_nucleotides(dna):
             'T --', HSGLTH1['T']
               )
 
-    return ('A (HSBGPG) - ', HSBGPG['A'], ', A (HSGLTH1) - ', HSGLTH1['A'])
+    return HSBGPG, HSGLTH1
 
 
 def translate_rna_to_protein(rna):
