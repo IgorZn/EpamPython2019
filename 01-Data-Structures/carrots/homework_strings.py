@@ -62,23 +62,40 @@ def count_nucleotides(dna):
 
     with open(dna, 'r') as f:
         lines = f.readlines()[1::]
-        print(lines)
 
-        HSBGPG = []
-        HSGLTH1 = []
+        nucleotides = ['A', 'C', 'G', 'T']
+        HSBGPG = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
+        HSGLTH1 = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
         switcher = 0
 
         for i in range(len(lines)):
-            if switcher == 0:
-                HSBGPG.append(lines[i].strip().count('A'))
-            else:
-                HSGLTH1.append(lines[i].strip().count('A'))
             if '>' in lines[i].strip():
                 switcher = 1
 
-        print('A (HSBGPG) - ', sum(HSBGPG),', ','A (HSGLTH1) - ', sum(HSGLTH1))
+            if switcher == 0:
+                for nucleotide in nucleotides:
+                    if nucleotide == 'A':
+                        HSBGPG[nucleotide] += lines[i].strip().count(nucleotide)
+                    if nucleotide == 'C':
+                        HSBGPG[nucleotide] += lines[i].strip().count(nucleotide)
+                    if nucleotide == 'G':
+                        HSBGPG[nucleotide] += lines[i].strip().count(nucleotide)
+                    if nucleotide == 'T':
+                        HSBGPG[nucleotide] += lines[i].strip().count(nucleotide)
+            else:
+                for nucleotide in nucleotides:
+                    if nucleotide == 'A':
+                        HSGLTH1[nucleotide] += lines[i].strip().count(nucleotide)
+                    if nucleotide == 'C':
+                        HSGLTH1[nucleotide] += lines[i].strip().count(nucleotide)
+                    if nucleotide == 'G':
+                        HSGLTH1[nucleotide] += lines[i].strip().count(nucleotide)
+                    if nucleotide == 'T':
+                        HSGLTH1[nucleotide] += lines[i].strip().count(nucleotide)
 
-    return ('A (HSBGPG) - ', sum(HSBGPG), ', A (HSGLTH1) - ', sum(HSGLTH1))
+        print('A (HSBGPG) - ', HSBGPG['A'], ', A (HSGLTH1) - ', HSGLTH1['A'])
+
+    return ('A (HSBGPG) - ', HSBGPG['A'], ', A (HSGLTH1) - ', HSGLTH1['A'])
 
 
 def translate_rna_to_protein(rna):
