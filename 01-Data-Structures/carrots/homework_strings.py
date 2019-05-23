@@ -50,10 +50,20 @@ dna = get_path('dna.fasta')
 
 
 def translate_from_dna_to_rna(dna):
+    import string
     
     """your code here"""
-    
-    return rna
+    with open(dna, 'r') as f:
+        lines = f.readlines()
+
+    for line in lines:
+        if '>' in line:
+            print(line.strip())
+            continue
+        print(line.strip().replace('T', 'U'))
+
+
+    # return rna
 
 
 def count_nucleotides(dna):
@@ -101,4 +111,5 @@ def translate_rna_to_protein(rna):
     
     return protein
 
-count_nucleotides(dna)
+# count_nucleotides(dna)
+translate_from_dna_to_rna(dna)
