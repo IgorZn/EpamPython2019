@@ -73,25 +73,12 @@ def count_nucleotides(dna):
                 switcher = 1
 
             if switcher == 0:
-                for nucleotide in nucleotides:
-                    if nucleotide == 'A':
-                        HSBGPG[nucleotide] += lines[i].strip().count(nucleotide)
-                    if nucleotide == 'C':
-                        HSBGPG[nucleotide] += lines[i].strip().count(nucleotide)
-                    if nucleotide == 'G':
-                        HSBGPG[nucleotide] += lines[i].strip().count(nucleotide)
-                    if nucleotide == 'T':
-                        HSBGPG[nucleotide] += lines[i].strip().count(nucleotide)
+                for a, nucleotide in enumerate(nucleotides):
+                    HSBGPG[nucleotide] += lines[i].strip().count(nucleotide)
             else:
                 for nucleotide in nucleotides:
-                    if nucleotide == 'A':
-                        HSGLTH1[nucleotide] += lines[i].strip().count(nucleotide)
-                    if nucleotide == 'C':
-                        HSGLTH1[nucleotide] += lines[i].strip().count(nucleotide)
-                    if nucleotide == 'G':
-                        HSGLTH1[nucleotide] += lines[i].strip().count(nucleotide)
-                    if nucleotide == 'T':
-                        HSGLTH1[nucleotide] += lines[i].strip().count(nucleotide)
+                    HSGLTH1[nucleotide] += lines[i].strip().count(nucleotide)
+
 
         print(
             'HSBGPG: ',

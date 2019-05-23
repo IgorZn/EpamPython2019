@@ -17,10 +17,12 @@ by_elems = re.findall(r'\{(.*?)\}', json)
 # parsing all data to dict
 my_dict = {}
 for a, elem in enumerate(by_elems):
+    # prepare string and split
     splited_elems = elem.split(', "')
     temp_list = []
 
     for i, s_elem in enumerate(splited_elems):
+        # prepare string and split
         list_elms = splited_elems[i].strip().replace('"', '').split(':')
         try:
             value = int(list_elms[1])
@@ -29,7 +31,7 @@ for a, elem in enumerate(by_elems):
         key = list_elms[0]
         temp_list.append((key, value))
 
-    t_dict = dict(temp_list)
+    t_dict = dict(temp_list)    # dict = dict([(1, 100), (2, 400)]) -> {1: 100, 2: 400}
     my_dict.update({a: t_dict})
 
 last_num = list(my_dict.keys())[-1]
