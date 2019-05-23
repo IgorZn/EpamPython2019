@@ -64,8 +64,7 @@ def count_nucleotides(dna):
         lines = f.readlines()[1::]
 
         nucleotides = ['A', 'C', 'G', 'T']
-        HSBGPG = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
-        HSGLTH1 = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
+        HSBGPG = HSGLTH1 = {i: 0 for i in nucleotides}
         switcher = 0
 
         for i in range(len(lines)):
