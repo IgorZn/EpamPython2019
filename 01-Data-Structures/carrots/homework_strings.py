@@ -73,7 +73,7 @@ def count_nucleotides(dna):
                 switcher = 1
 
             if switcher == 0:
-                for a, nucleotide in enumerate(nucleotides):
+                for nucleotide in nucleotides:
                     HSBGPG[nucleotide] += lines[i].strip().count(nucleotide)
             else:
                 for nucleotide in nucleotides:
