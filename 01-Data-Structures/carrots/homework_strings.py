@@ -50,6 +50,7 @@ rna_codon = get_path('rna_codon_table.txt')
 
 def translate_from_dna_to_rna(dna):
     """your code here"""
+    # open file, start reading and replacing
     with open(dna, 'r') as f:
         next(f)     # skip first line
         rna = ''
@@ -57,6 +58,8 @@ def translate_from_dna_to_rna(dna):
             if line.strip().startswith('>'):
                 continue
             rna += line.strip().replace('T', 'U')+'\n'
+
+    # write result to file
     with open('dna_to_rna.txt', 'w') as out:
         out.write(rna)
     return rna
@@ -108,7 +111,7 @@ f"""
     
     HSGLTH1: 
         A -- {HSGLTH1['A']}, 
-        C -- {HSGLTH1['C']}
+        C -- {HSGLTH1['C']},
         G -- {HSGLTH1['G']}, 
         T -- {HSGLTH1['T']}
     """
