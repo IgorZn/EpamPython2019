@@ -67,25 +67,24 @@ def translate_from_dna_to_rna(dna):
 def count_nucleotides(dna):
     
     """your code here"""
+    nucls = ['A', 'C', 'G', 'T']
+    HSBGPG = {i: 0 for i in nucls}
+    HSGLTH1 = {i: 0 for i in nucls}
+    switcher = 0
 
     with open(dna, 'r') as f:
-        lines = f.readlines()[1::]
-
-        nucleotides = ['A', 'C', 'G', 'T']
-        HSBGPG = HSGLTH1 = {i: 0 for i in nucleotides}
-        switcher = 0
-
-        for i in range(len(lines)):
-            if '>' in lines[i].strip():
+        next(f)     # skip first line
+        for line in f:
+            if line.startswith('>HSGLTH1'):
                 switcher = 1
 
             if switcher == 0:
-                for nucleotide in nucleotides:
-                    HSBGPG[nucleotide] += lines[i].strip().count(nucleotide)
-            else:
-                for nucleotide in nucleotides:
-                    HSGLTH1[nucleotide] += lines[i].strip().count(nucleotide)
+                for nucl in nucls:
+                    HSBGPG[nucl] += line.strip().count(nucl)
 
+            if switcher == 1:
+                for nucl in nucls:
+                    HSGLTH1[nucl] += line.strip().count(nucl)
 
         print(
             'HSBGPG: ',
@@ -109,5 +108,6 @@ def translate_rna_to_protein(rna):
     
     return protein
 
+
 count_nucleotides(dna)
-translate_from_dna_to_rna(dna)
+# translate_from_dna_to_rna(dna)
