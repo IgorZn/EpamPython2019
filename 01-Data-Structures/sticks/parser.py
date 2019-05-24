@@ -1,5 +1,5 @@
 import re
-
+def merge_write_json(*args) -> :
 with open('winedata_1.json', 'r', encoding='utf-8') as f1, \
         open('winedata_2.json', 'r', encoding='utf-8') as f2:
 
@@ -41,6 +41,7 @@ for i in range(last_num):
     if my_dict.get(i) == my_dict.get(i+1):
         print(my_dict.get(i), my_dict.get(i+1))
         my_dict.pop(i+1)
+
 
 
 
