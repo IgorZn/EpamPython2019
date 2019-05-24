@@ -108,6 +108,7 @@ def count_nucleotides(dna):
         for line in f:
             if line.startswith('>HSGLTH1'):
                 switcher = 1
+                continue
 
             if switcher == 0:
                 for nucl in nucls:
