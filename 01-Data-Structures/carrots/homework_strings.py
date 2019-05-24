@@ -52,10 +52,11 @@ def translate_from_dna_to_rna(dna):
     """your code here"""
     # open file, start reading and replacing
     with open(dna, 'r') as f:
-        next(f)     # skip first line
+        # next(f)     # skip first line
         rna = ''
         for line in f:
             if line.strip().startswith('>'):
+                rna += f"{line.strip()}\n"
                 continue
             rna += line.strip().replace('T', 'U')+'\n'
 
@@ -66,7 +67,7 @@ def translate_from_dna_to_rna(dna):
 
 
 def count_nucleotides(dna):
-    
+
     """your code here"""
     nucls = ['A', 'C', 'G', 'T']
     HSBGPG = {i: 0 for i in nucls}
@@ -103,24 +104,23 @@ def count_nucleotides(dna):
     with open('statistic_of_nucleotides_in_DNA.txt', 'w') as out:
         out.write(
 f"""
-    HSBGPG: 
-        A -- {HSBGPG['A']}, 
+    HSBGPG:
+        A -- {HSBGPG['A']},
         C -- {HSBGPG['C']},
-        G -- {HSBGPG['G']}, 
+        G -- {HSBGPG['G']},
         T -- {HSBGPG['T']},
-    
-    HSGLTH1: 
-        A -- {HSGLTH1['A']}, 
+
+    HSGLTH1:
+        A -- {HSGLTH1['A']},
         C -- {HSGLTH1['C']},
-        G -- {HSGLTH1['G']}, 
-        T -- {HSGLTH1['T']}
-    """
-)
+        G -- {HSGLTH1['G']},
+        T -- {HSGLTH1['T']}"""
+        )
     return HSBGPG, HSGLTH1
 
 
 def translate_rna_to_protein(rna, rna_codon):
-    
+
     """your code here"""
     rna_codon_dict = {}     # dict with codes
     with open(rna_codon) as f:
@@ -137,6 +137,9 @@ def translate_rna_to_protein(rna, rna_codon):
     # now check each line by cutting for 3 letters
     # with step 3 and use as key for dict rna_codon_dict
     for line in rna:
+        if line.strip().startswith('>'):
+            protein += f"\n{line.strip()}\n"
+            continue
         if len(line) % 3 == 0:
             for i in range(0, len(line), 3):
                 codon = line[i:i + 3]
@@ -152,5 +155,4 @@ def translate_rna_to_protein(rna, rna_codon):
 
 count_nucleotides(dna)
 rna = str(translate_from_dna_to_rna(dna)).split('\n')
-print(rna)
 translate_rna_to_protein(rna, rna_codon)
