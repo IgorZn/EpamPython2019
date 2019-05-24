@@ -57,6 +57,8 @@ def translate_from_dna_to_rna(dna):
             if line.strip().startswith('>'):
                 continue
             rna += line.strip().replace('T', 'U')+'\n'
+    with open('dna_to_rna.txt', 'w') as out:
+        out.write(rna)
     return rna
 
 
@@ -95,7 +97,22 @@ def count_nucleotides(dna):
             'G --', HSGLTH1['G'],
             'T --', HSGLTH1['T'], '\n'
               )
-
+    with open('statistic_of_nucleotides_in_DNA.txt', 'w') as out:
+        out.write(
+f"""
+    HSBGPG: 
+        A -- {HSBGPG['A']}, 
+        C -- {HSBGPG['C']},
+        G -- {HSBGPG['G']}, 
+        T -- {HSBGPG['T']},
+    
+    HSGLTH1: 
+        A -- {HSGLTH1['A']}, 
+        C -- {HSGLTH1['C']}
+        G -- {HSGLTH1['G']}, 
+        T -- {HSGLTH1['T']}
+    """
+)
     return HSBGPG, HSGLTH1
 
 
@@ -124,6 +141,9 @@ def translate_rna_to_protein(rna, rna_codon):
 
     # print(rna_codon_dict)
     print(protein)
+    with open('rna_to_protein.txt', 'w') as out:
+        out.write(protein)
+
     return protein
 
 

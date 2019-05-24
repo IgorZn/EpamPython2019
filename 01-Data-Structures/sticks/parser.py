@@ -1,17 +1,22 @@
 import re
-def merge_write_json(*args) -> :
-with open('winedata_1.json', 'r', encoding='utf-8') as f1, \
-        open('winedata_2.json', 'r', encoding='utf-8') as f2:
+def merge_write_json(file1, file2):
+    with open(file1, 'r', encoding='utf-8') as f1, \
+            open(file2, 'r', encoding='utf-8') as f2:
 
-    text = f1.read()[:-1] + ',' + f2.read()[1:]
-    with open('winedata_full.json', 'w', encoding='utf-8') as out:
-        out.write(text)
+        # merge and write down to single file
+        text = f'{f1.read()[:-1]},{f2.read()[1:]}'
+        with open('winedata_full.json', 'w', encoding='utf-8') as out:
+            out.write(text)
 
-# merge and write down to single file
-with open('winedata_full.json', encoding='utf-8') as f:
-    json = f.read()[1:-1].replace('null', 'None')
+    # remove 'null'
+    with open('winedata_full.json', encoding='utf-8') as f:
+        json = f.readline()[1:-1].replace('null', 'None')
+
+    return json
+
 
 # find all {<key: value>}
+json = merge_write_json('winedata_1.json', 'winedata_2.json')
 by_elems = re.findall(r'\{(.*?)\}', json)
 
 # parsing all data to dict
@@ -42,6 +47,4 @@ for i in range(last_num):
         print(my_dict.get(i), my_dict.get(i+1))
         my_dict.pop(i+1)
 
-
-
-
+print(my_dict)
