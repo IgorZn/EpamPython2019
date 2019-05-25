@@ -1,37 +1,46 @@
 import string
 
-def letters_range(*args):
+def letters_range(*args, **kwargs):
+    # print(args[0], ' '.join(map(str, [x for x in args])), ' '.join(map(str, [x for x in kwargs])))
+
     # default values for start and step
     start = 0
     step = 1
+    stop = string.ascii_lowercase.index(args[0])
+    letters = [l for l in string.ascii_lowercase]
 
-    # no args, no money
-    if len(args) == 0:
-        raise TypeError('stop value is not present.')
+    # just 'stop'
+    if len(args) == 1:
+        print(letters[start:stop:step])
 
-    # single args, use as 'stop'
-    elif len(args) == 1:
-        stop = string.ascii_lowercase.index(args[0])
-        letters = [letter for letter in string.ascii_lowercase[start:stop:step]]
-        print(letters)
-
-    elif len(args) == 2:
+    # stop and start
+    if len(args) == 2:
         start = string.ascii_lowercase.index(args[0])
         stop = string.ascii_lowercase.index(args[1])
-        letters = [letter for letter in string.ascii_lowercase[start:stop:step]]
-        print(letters)
+        print(letters[start:stop:step])
 
-    elif len(args) == 3:
+    # start, stop and step
+    if len(args) == 3:
         start = string.ascii_lowercase.index(args[0])
+        stop = string.ascii_lowercase.index(args[1])
         step = args[2]
-        stop = string.ascii_lowercase.index(args[1])
-        letters = [letter for letter in string.ascii_lowercase[start:stop:step]]
-        print(letters)
+        print(letters[start:stop:step])
 
 
 letters_range('b', 'w', 2)
+# ['b', 'd', 'f', 'h', 'j', 'l', 'n', 'p', 'r', 't', 'v']
+
 letters_range('g')
+# ['a', 'b', 'c', 'd', 'e', 'f']
+
 letters_range('g', 'p')
+# ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o']
+
+letters_range('g', 'p', **{'l': 7, 'o': 0})
+# ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o']
+
 letters_range('p', 'g', -2)
+# ['p', 'n', 'l', 'j', 'h']
+
 letters_range('a')
-# letters_range('g', 'p', **{'l': 7, 'o': 0})
+# []
