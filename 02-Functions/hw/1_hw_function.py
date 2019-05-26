@@ -1,13 +1,16 @@
 import string
 
 def letters_range(*args, **kwargs):
-    # print(args[0], ' '.join(map(str, [x for x in args])), ' '.join(map(str, [x for x in kwargs])))
-
     # default values for start and step
     start = 0
     step = 1
     stop = string.ascii_lowercase.index(args[0])
     letters = [l for l in string.ascii_lowercase]
+
+    if kwargs:
+        for key in kwargs:
+            i = letters[key]
+            letters[i] = kwargs[key]
 
     # just 'stop'
     if len(args) == 1:
