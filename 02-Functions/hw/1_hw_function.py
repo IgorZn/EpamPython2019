@@ -40,7 +40,7 @@ letters_range('g', 'p')
 # ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o']
 
 letters_range('g', 'p', **{'l': 7, 'o': 0})
-# ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o']
+# ['g', 'h', 'i', 'j', 'k', 700, 'm', 'n', 0]
 
 letters_range('p', 'g', -2)
 # ['p', 'n', 'l', 'j', 'h']
