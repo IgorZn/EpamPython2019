@@ -1,6 +1,4 @@
 def atom(a, *args):
-    a = a or None
-    print('a ->', a)
 
     if a:
         def get_value():
@@ -20,15 +18,10 @@ def atom(a, *args):
             print('process_value ->', a)
 
         def delete_value():
-            """
-            пока не выходит "Каменный цветок"
-            :return:
-            """
             nonlocal a
-            delattr(set_value, str(a))
-            print(a)
+            del a
 
-        return get_value(), set_value(), process_value(*args)
+        return get_value(), set_value(), process_value(*args), delete_value()
 
 
 def f1(a):
