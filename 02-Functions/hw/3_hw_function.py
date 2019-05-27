@@ -1,16 +1,16 @@
-a = 1
+counter_name = 1
 
 def tester():
     print('Im tester func',)
 
 def make_it_count(func, glb_var):
     def new_func(func):
-        global a
-        print(a, 'original value')
+        global counter_name
+        print(counter_name, 'original value')
         func()
-        a += 1
-        print(a, 'new value')
+        counter_name += 1
+        print(counter_name, 'new value')
 
     return new_func(func)
 
-make_it_count(tester, a)
+make_it_count(tester, counter_name)
