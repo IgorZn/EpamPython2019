@@ -1,6 +1,10 @@
 import string
 
 def letters_range(*args, **kwargs):
+    # no args, no work
+    if len(args) == 0:
+        raise Exception('letters_range expected at least 1 arguments, got 0')
+
     # default values for start and step
     start = 0
     step = 1
@@ -40,7 +44,7 @@ letters_range('g', 'p')
 # ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o']
 
 letters_range('g', 'p', **{'l': 7, 'o': 0})
-# ['g', 'h', 'i', 'j', 'k', 700, 'm', 'n', 0]
+# ['g', 'h', 'i', 'j', 'k', 700, 'm', 'n', 0]p
 
 letters_range('p', 'g', -2)
 # ['p', 'n', 'l', 'j', 'h']
