@@ -13,7 +13,7 @@ def letters_range(*args, **kwargs):
 
     if kwargs:
         for key in kwargs:
-            i = letters[key]
+            i = letters.index(key)
             letters[i] = kwargs[key]
 
     # just 'stop'
