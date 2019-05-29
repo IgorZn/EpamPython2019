@@ -3,14 +3,11 @@ def merge_write_json(file1, file2):
     with open(file1, 'r', encoding='utf-8') as f1, \
             open(file2, 'r', encoding='utf-8') as f2:
 
-        # merge and write down to single file
+        # merge, clean and write down to single file
         text = f'{f1.read()[:-1]},{f2.read()[1:]}'
         with open('winedata_full.json', 'w', encoding='utf-8') as out:
-            out.write(text)
-
-    # remove 'null'
-    with open('winedata_full.json', encoding='utf-8') as f:
-        json = f.readline()[1:-1].replace('null', 'None')
+            json = text.replace('null', 'None')
+            out.write(json)
 
     return json
 
@@ -18,6 +15,8 @@ def merge_write_json(file1, file2):
 # find all {<key: value>}
 json = merge_write_json('winedata_1.json', 'winedata_2.json')
 by_elems = re.findall(r'\{(.*?)\}', json)
+print(by_elems)
+
 
 # parsing all data to dict
 my_dict = {}
