@@ -1,7 +1,7 @@
 from functools import reduce
 
 # problem 6 (https://projecteuler.net/problem=6)
-diff_between_sum_of_squares = sum([x for x in range(100)]) ** 2 - sum([x**2 for x in range(100)])
+diff_between_sum_of_squares = sum([x for x in range(1, 101)]) ** 2 - sum([x**2 for x in range(1, 101)])
 print(diff_between_sum_of_squares)
 
 # problem 9
