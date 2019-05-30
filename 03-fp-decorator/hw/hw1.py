@@ -17,13 +17,8 @@ print(sum_of_digit)
 def elems_total(elem1, elem2):
     return elem1 * elem2
 
-fraction = ''.join([str(x) for x in range(1,1000000)])
-total = 1
-
-# get [0, 9, 99 ... 999999]
 digits_only_9 = [x for x in range(0, 1000000) if x % 9 == 0 and \
                  len(set(str(x))) == 1 and \
                  str(x).endswith('9')]
 
-summa = reduce(elems_total, [int(fraction[i]) for i in digits_only_9])
-print(summa)
+print(reduce(elems_total, [int(''.join([str(x) for x in range(1, 1000000)])[i]) for i in digits_only_9]))
