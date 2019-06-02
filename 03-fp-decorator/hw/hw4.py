@@ -1,35 +1,45 @@
 import os
-import sys
-import time
 from functools import wraps
+from threading import Thread
+from time import sleep, strftime
+import random
 
-def make_cache(second):
+storage = {}
+
+
+def make_cache(seconds, key=None):
     def decorator(func):
         @wraps(func)
-        def wrapper(*args, **kwargs):
-            result = func(*args, **kwargs)
-            time.sleep(second)
-            return result
-        return wrapper
+        def async_func(*args, **kwargs):
+            nonlocal key
+            th_func = Thread(target=func, args=args, kwargs=kwargs)
+            storage.update([(key, th_func)])
+            th_func.start()
+            print(f'Function \'{func.__name__}\' was saved in storage for {seconds} seconds', storage)
+            sleep(seconds)
+            storage.pop(key)
+            print(f'Function \'{func.__name__}\' was deleted from storage:', storage)
+            return th_func
+        return async_func
     return decorator
 
-@make_cache(30)
+
+@make_cache(20, key=f'key{random.randint(0, 20)}')
 def slow_function():
-    """
-    shutdown PC if you really want.
-    :return:
-    """
-    if sys.platform == 'win32':
-        os.popen('shutdown.exe /f /s /t 30').read()
-        inp = input('Cancel shutdown? [yes/no]').lower()
-        if inp.startswith('yes'):
-            os.popen('shutdown.exe /a').read()
-    else:
-        os.popen('shutdown.exe -P -t 30').read()
-        inp = input('Cancel shutdown? [yes/no]').lower()
-        if inp.startswith('yes'):
-            os.popen('shutdown.exe -c').read()
+    with open(f'{os.getcwd()}\quotes.txt', encoding='utf-8') as f:
+        quates = [q for q in f]
+        index = random.randint(0, len(quates)-1)
+        print(quates[index])
+        print(f'Call storage from: {slow_function.__name__}', storage)
+
+if __name__ == '__main__':
+
+    def main():
+        slow_function()
+        print(f'BACK TO MAIN (time: {strftime("%H:%M:%S")})')
+
+        slow_function()
+        print(f'BACK TO MAIN (time: {strftime("%H:%M:%S")})')
 
 
-
-slow_function()
+    main()
