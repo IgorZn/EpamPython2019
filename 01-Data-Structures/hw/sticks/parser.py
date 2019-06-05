@@ -3,7 +3,7 @@ import re
 file1, file2 = 'winedata_1.json', 'winedata_2.json'
 full_json = 'winedata_full.json'
 
-import re
+
 def merge_write_json(file1, file2):
     """
     Открывает файлы, читает их и склеиваем это всё в одну
@@ -150,6 +150,7 @@ def most_common_country(variety, wine_data):
 
     print(f'\tMost country region for {variety} is: ', name, count)
 
+
 def avarage_score(variety, wine_data):
     points = [int(x['points']) for x in wine_data if x['variety'] == variety and int(x['points']) > 0]
     if len(points) == 0:
@@ -160,9 +161,38 @@ def avarage_score(variety, wine_data):
     return avg_points
 
 
+def most_expensive_wine(wine_data):
+    wine_data = sorted(wine_data, key=lambda x: int(x['price']), reverse=True)
+    print(f'\tMost expensive wine is: ', wine_data[0]['variety'], wine_data[0]['price'])
+    return (wine_data[0]['variety'], wine_data[0]['price'])
+
+
+def cheapest_wine(wine_data):
+    cheapest = [(x['variety'], int(x['price'])) for x in wine_data if int(x['price']) > 0]
+    cheapest_dict = dict(sorted(dict(cheapest).items(), key=lambda x: x[1]))
+    _price = 0
+    most_cheapest = []
+    for key in cheapest_dict.keys():
+        if cheapest_dict[key] == 0:
+            continue
+        # it will only once
+        if cheapest_dict[key] > _price and _price == 0:
+            _price = cheapest_dict[key]
+
+        if cheapest_dict[key] <= _price:
+            _price = cheapest_dict[key]
+            most_cheapest.append((key, cheapest_dict[key]))
+
+    print('\tMost cheapest wine(s) is/are:', dict(most_cheapest))
+
+
 if __name__ == '__main__':
-    varietys = ['Gew\\u00fcrztraminer', 'Riesling', 'Merlot', 'Tempranillo', 'Red Blend', 'Madera']
-    # varietys = ['Gew\\u00fcrztraminer']
+    varietys = ['Gew\\u00fcrztraminer',
+                'Riesling',
+                'Merlot',
+                'Tempranillo',
+                'Red Blend',
+                'Madera']
 
     def main(wines, variety=None):
         print(f'Statistics for {variety}:')
@@ -181,3 +211,6 @@ if __name__ == '__main__':
 
     for variety in varietys:
         main(wines, variety=variety)
+
+    most_expensive_wine(wines)
+    cheapest_wine(wines)
