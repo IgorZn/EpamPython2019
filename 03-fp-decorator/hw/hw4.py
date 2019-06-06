@@ -1,25 +1,21 @@
 import os
 from functools import wraps
-from threading import Thread
 from time import sleep, strftime
 import random
 
 storage = {}
 
 
-def make_cache(seconds, key=None):
+def make_cache(seconds, *args, **kwargs):
     def decorator(func):
         @wraps(func)
         def async_func(*args, **kwargs):
-            nonlocal key
-            th_func = Thread(target=func, args=args, kwargs=kwargs)
-            storage.update([(key, th_func)])
-            th_func.start()
-            print(f'Function \'{func.__name__}\' was saved in storage for {seconds} seconds', storage)
-            sleep(seconds)
+            key = ''
+            result = func(*args, **kwargs)
+            storage.update([(key, func)])
             storage.pop(key)
             print(f'Function \'{func.__name__}\' was deleted from storage:', storage)
-            return th_func
+            return result
         return async_func
     return decorator
 
