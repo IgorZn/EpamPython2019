@@ -40,6 +40,41 @@ PEP8 соблюдать строго, проверку делаю автотес
 import datetime
 
 
+class Homework:
+    created = datetime.datetime.now()
+
+    def __init__(self, text, days):
+        self.text = text
+        self.deadline = self.created + datetime.timedelta(days=days) - datetime.datetime.now()
+
+    @property
+    def is_active(self):
+        return True if self.deadline.days > 0 else False
+
+
+class Student:
+
+    def __init__(self, last_name, first_name):
+        self.last_name = last_name
+        self.first_name = first_name
+
+    def do_homework(self, Homework):
+        if Homework.is_active:
+            return Homework
+        print('You are late')
+
+
+class Teacher:
+
+    def __init__(self, last_name, first_name, ):
+        self.last_name = last_name
+        self.first_name = first_name
+
+    @staticmethod
+    def create_homework(text, days):
+        return Homework(text, days)
+
+
 if __name__ == '__main__':
     teacher = Teacher('Daniil', 'Shadrin')
     student = Student('Roman', 'Petrov')
@@ -54,7 +89,7 @@ if __name__ == '__main__':
     # create function from method and use it
     create_homework_too = teacher.create_homework
     oop_homework = create_homework_too('create 2 simple classes', 5)
-    print(oop_homework.deadline)  # 5 days, 0:00:00
+    oop_homework.deadline  # 5 days, 0:00:00
 
     student.do_homework(oop_homework)
     student.do_homework(expired_homework)  # You are late
