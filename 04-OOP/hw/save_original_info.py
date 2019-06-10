@@ -37,7 +37,7 @@ def print_result(function):
     def wrapper(*args, **kwargs):
         """Function-wrapper which print result of an original function"""
         result = function(*args, **kwargs)
-        print(result, *args, **kwargs)
+        print(result)
         return result
 
     return wrapper
