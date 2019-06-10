@@ -17,7 +17,6 @@ print(custom_sum.__original_func)  # <function custom_sum at <some_id>>
 """
 
 import functools
-from functools import wraps
 
 
 def saver_info(decor_arg):
