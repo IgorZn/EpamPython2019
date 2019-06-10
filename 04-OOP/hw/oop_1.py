@@ -41,13 +41,12 @@ import datetime
 
 
 class Homework:
-    created = datetime.datetime.now()
 
     def __init__(self, text, days):
         self.text = text
+        self.created = datetime.datetime.now()
         self.deadline = self.created + datetime.timedelta(days=days) - datetime.datetime.now()
 
-    @property
     def is_active(self):
         return True if self.deadline.days > 0 else False
 
@@ -59,7 +58,7 @@ class Student:
         self.first_name = first_name
 
     def do_homework(self, Homework):
-        if Homework.is_active:
+        if Homework.is_active():
             return Homework
         print('You are late')
 

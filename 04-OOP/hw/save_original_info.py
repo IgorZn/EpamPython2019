@@ -17,6 +17,7 @@ print(custom_sum.__original_func)  # <function custom_sum at <some_id>>
 """
 
 import functools
+from functools import wraps
 
 
 def saver_info(decor_arg):
@@ -24,9 +25,9 @@ def saver_info(decor_arg):
         def wrapper(*args, **kwargs):
             return func(*args, **kwargs)
 
-        wrapper.__doc__ = getattr(decor_arg, '__doc__')
-        wrapper.__name__ = getattr(decor_arg, '__name__')
-        wrapper.__dict__['__original_func'] = decor_arg
+        wrapper.__doc__ = decor_arg.__doc__
+        wrapper.__name__ = decor_arg.__name__
+        wrapper.__original_func = decor_arg
 
         return wrapper
     return decorator
