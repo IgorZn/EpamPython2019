@@ -45,10 +45,10 @@ class Homework:
     def __init__(self, text, days):
         self.text = text
         self.created = datetime.datetime.now()
-        self.deadline = self.created + datetime.timedelta(days=days) - datetime.datetime.now()
+        self.deadline = datetime.timedelta(days=days)
 
     def is_active(self):
-        return True if self.deadline.days > 0 else False
+        return True if (datetime.datetime.now() - self.created) < self.deadline else False
 
 
 class Student:
