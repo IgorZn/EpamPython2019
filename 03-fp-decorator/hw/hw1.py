@@ -7,7 +7,7 @@ print(diff_between_sum_of_squares)
 # problem 9
 pythagorean_triplet = [(a, b, (1000-a-b)) for a in range(1, 1000) \
                        for b in range(a, 1000) if a**2 + b**2 == (1000-a-b)**2]
-print(pythagorean_triplet)
+print(reduce(lambda x,y: x*y, pythagorean_triplet[0]))
 
 # problem 48
 sum_of_digit = str(sum([x**x for x in range(1, 1001)]))[-10:]
