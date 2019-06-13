@@ -54,6 +54,79 @@ import datetime
 from collections import defaultdict
 
 
+class HomeworkError(Exception):
+    """Error for wrong type of homework"""
+
+
+class DeadlineError(HomeworkError):
+    """Error for out of date homework"""
+
+
+class Homework:
+
+    def __init__(self, text, days):
+        self.text = text
+        self.created = datetime.datetime.now()
+        self.deadline = datetime.timedelta(days=days)
+
+    def is_active(self):
+        return True if (datetime.datetime.now() - self.created) < self.deadline else False
+
+
+class Student:
+
+    def __init__(self, first_name, last_name):
+        self.last_name = last_name
+        self.first_name = first_name
+
+    def do_homework(self, Homework, solution):
+        if Homework.is_active():
+            return HomeworkResult(self, Homework, solution)
+        raise DeadlineError("You are late")
+
+    def __str__(self):
+        return f'{self.last_name}, {self.first_name}'
+
+
+class Teacher(Student):
+    homework_done = defaultdict(list)
+
+    def __init__(self, last_name, first_name):
+        super().__init__(last_name, first_name)
+
+    @staticmethod
+    def create_homework(text, days):
+        return Homework(text, days)
+
+    @classmethod
+    def check_homework(cls, result):
+        if len(result.result) > 5:
+            if result.homework not in cls.homework_done:
+                cls.homework_done[result.homework].append(result)
+            return True
+        return False
+
+    @classmethod
+    def reset_results(cls, hw=None):
+        if isinstance(hw, Homework):
+            cls.homework_done.pop(hw)
+
+    def __str__(self):
+        return f'{self.last_name}, {self.first_name}'
+
+
+class HomeworkResult:
+
+    def __init__(self, author, homework, solution):
+        if not isinstance(homework, Homework):
+            raise HomeworkError('You gave a not Homework object')
+        self.homework = homework
+        self.author = author
+        self.result = solution
+
+    def __str__(self):
+        return (self.homework, self.author, self.result)
+
 
 if __name__ == '__main__':
     opp_teacher = Teacher('Daniil', 'Shadrin')
