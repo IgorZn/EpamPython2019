@@ -76,8 +76,8 @@ class Homework:
 class Student:
 
     def __init__(self, first_name, last_name):
-        self.last_name = last_name
         self.first_name = first_name
+        self.last_name = last_name
 
     def do_homework(self, Homework, solution):
         if Homework.is_active():
@@ -91,8 +91,8 @@ class Student:
 class Teacher(Student):
     homework_done = defaultdict(list)
 
-    def __init__(self, last_name, first_name):
-        super().__init__(last_name, first_name)
+    def __init__(self, first_name, last_name):
+        super().__init__(first_name, last_name)
 
     @staticmethod
     def create_homework(text, days):
@@ -112,7 +112,7 @@ class Teacher(Student):
             cls.homework_done.pop(hw)
 
     def __str__(self):
-        return f'{self.last_name}, {self.first_name}'
+        return f'{self.first_name} {self.last_name}'
 
 
 class HomeworkResult:
