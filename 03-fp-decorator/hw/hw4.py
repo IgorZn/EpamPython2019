@@ -1,4 +1,5 @@
 import os
+import time
 from functools import wraps
 from time import sleep, strftime
 import random
@@ -10,11 +11,13 @@ def make_cache(seconds, *args, **kwargs):
     def decorator(func):
         @wraps(func)
         def async_func(*args, **kwargs):
-            key = ''
+            current_time = time.time()
             result = func(*args, **kwargs)
-            storage.update([(key, func)])
-            storage.pop(key)
-            print(f'Function \'{func.__name__}\' was deleted from storage:', storage)
+            storage.update([(current_time, func)])
+            s = storage.copy()  # to avoid “RuntimeError: dictionary changed size during iteration”
+            for key in s.keys():
+                if current_time - key > 30:
+                    storage.pop(key)
             return result
         return async_func
     return decorator
@@ -26,16 +29,15 @@ def slow_function():
         quates = [q for q in f]
         index = random.randint(0, len(quates)-1)
         print(quates[index])
-        print(f'Call storage from: {slow_function.__name__}', storage)
+        sleep(10)
+
 
 if __name__ == '__main__':
 
     def main():
-        slow_function()
-        print(f'BACK TO MAIN (time: {strftime("%H:%M:%S")})')
-
-        slow_function()
-        print(f'BACK TO MAIN (time: {strftime("%H:%M:%S")})')
+        for i in range(5):
+            slow_function()
+            print(storage.keys())
 
 
     main()
