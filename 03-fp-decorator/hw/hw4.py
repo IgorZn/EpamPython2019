@@ -16,7 +16,7 @@ def make_cache(seconds, *args, **kwargs):
             storage.update([(current_time, func)])
             s = storage.copy()  # to avoid “RuntimeError: dictionary changed size during iteration”
             for key in s.keys():
-                if current_time - key > 30:
+                if current_time - key > seconds:
                     storage.pop(key)
             return result
         return async_func
