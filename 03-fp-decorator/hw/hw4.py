@@ -23,7 +23,7 @@ def make_cache(seconds, *args, **kwargs):
     return decorator
 
 
-@make_cache(20, key=f'key{random.randint(0, 20)}')
+@make_cache(20)
 def slow_function():
     with open(f'{os.getcwd()}\quotes.txt', encoding='utf-8') as f:
         quates = [q for q in f]
