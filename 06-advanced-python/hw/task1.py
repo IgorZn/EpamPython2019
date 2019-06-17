@@ -55,7 +55,7 @@ class PrintableFolder:
         """
 
         :param directory: startpath
-        :param args: args[0] > tuples, args[1] > folders
+        :param args: args[0] -> tuples, args[1] -> folders
         :return: None
         """
         file = '|-> '
