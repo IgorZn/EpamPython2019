@@ -25,7 +25,7 @@ class PrintableFolder:
     folders = []  # folder store
     tuples = []  # folders, subdirs, files
 
-    def __init__(self, name, content):
+    def __init__(self, name=None, content=None):
         self.name = name if name else self.startpath
         self.content = content if content else self.tuples
 
