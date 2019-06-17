@@ -19,7 +19,6 @@ import os
 
 class PrintableFolder:
 
-
     # default start point
     startpath = '.'
 
@@ -113,7 +112,7 @@ class PrintableFolder:
             self.folders.append(self.folder_tree(folder, directory))
 
     def __contains__(self, file):
-        for root, subs, files in self.content:
+        for _, _, files in self.content:
             return file.name in files
 
     def __str__(self):
