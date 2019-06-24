@@ -29,6 +29,12 @@ class PrintableFolder:
         self.name = name if name else self.startpath
         self.content = content if content else self.tuples
 
+    @property
+    def full_tree_list(self):
+        self.tree_walk(self.name)
+        self.folder_tree(self.tuples, self.name)
+        return self.files_tree(self.name, self.tuples, self.folders, get_list=True)
+
     def folder_tree(self, line, directory):
         one = '|-> V '
         padding = '|   '
@@ -51,7 +57,7 @@ class PrintableFolder:
             # print(''.join(line))
             return (''.join(line))
 
-    def files_tree(self, directory, *args):
+    def files_tree(self, directory, *args, get_list=False):
         """
 
         :param directory: startpath
@@ -104,7 +110,10 @@ class PrintableFolder:
         for elm in folders_list:
             print(elm)
 
-        return ''
+        if get_list is False:
+            return ''
+        else:
+            return folders_list
 
     def tree_walk(self, directory):
         for folder, subs, files in os.walk(directory):
