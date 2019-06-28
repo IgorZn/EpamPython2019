@@ -12,7 +12,7 @@ class Server:
 
     def __init__(self):
         self.sock.bind((self.IP, self.PORT))    # запускаем сокет на ИП и порт
-        self.sock.listen(1) # колличество подключений
+        self.sock.listen(1)     # колличество подключений
 
     def handler(self, conn, addr):
         """
@@ -25,8 +25,8 @@ class Server:
             data = conn.recv(self.HEADER_LENGTH)    # message
             for connection in self.connections:     # send data to all in connections
                 connection.send(data)
-            if not data:    # shutdown servre if NO data
-                print(str(addr[0])+':'+str(addr[1])+' disconnected')
+            if not data:    # shutdown server if NO data
+                print(str(addr[0]) + ':' + str(addr[1]) + ' disconnected')
                 self.connections.remove(conn)
                 conn.close()
                 break
@@ -37,21 +37,19 @@ class Server:
         :return:
         """
         while True:
-            conn, addr = self.sock.accept() # ждать соединения с клиентом
+            conn, addr = self.sock.accept() # ождиать соединения с клиентом
             serverThread = threading.Thread(target=self.handler, args=(conn, addr))
             serverThread.daemon = True
             serverThread.start()
             self.connections.append(conn)
-            print(print(str(addr[0]) + ':' + str(addr[1]) + ' connected'))
+            print(str(addr[0]) + ':' + str(addr[1]) + ' connected')
 
 class Client:
     sock = socket.socket()
 
-
     def send_message(self):
-        name = input('Please type your name: ')
         while True:
-            self.sock.send(bytes(input(f"{name}:"), 'utf-8'))
+            self.sock.send(bytes(input(""), 'utf-8'))
 
     def __init__(self, addr='127.0.0.1'):
         self.sock.connect((addr, 2042))
@@ -63,8 +61,9 @@ class Client:
         while True:
             data = self.sock.recv(1024)
             if data == bytes("{quit}", "utf8"):
+                self.sock.close()
                 break
-            print(data)
+            print(str(data, 'utf-8'))
 
 if __name__ == '__main__':
     if (len(sys.argv)) > 1:
