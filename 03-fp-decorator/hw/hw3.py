@@ -11,8 +11,8 @@ def collatz_steps(n, count=count):
         collatz_steps((n * 3) + 1, count+1)
     return a
 
-def collatz_steps_inline(n, calls=0):
-    return collatz_steps(3 * n + 1 if n % 2 else int(n / 2), calls=calls + 1) if n != 1 else calls
+def collatz_steps_inline(n, c=0):
+    return collatz_steps_inline(3 * n + 1 if n % 2 else int(n / 2), c=c + 1) if n != 1 else c
 
 start = time.time()
 assert collatz_steps(16) == 4
