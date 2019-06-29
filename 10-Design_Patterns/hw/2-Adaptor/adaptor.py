@@ -112,7 +112,6 @@ class Adapter:
     def __init__(self, handler):
         self._handler = handler
 
-
     def upload_documents(self, documents):
         documents_json = []
         for document in documents:
@@ -122,6 +121,7 @@ class Adapter:
 
     def get_documents(self, document_ids):
         return self._handler.get_documents(document_ids)
+
 
 if __name__ == "__main__":
     class App: pass  # Упрощенная реализация сложного приложения
