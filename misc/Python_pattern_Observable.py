@@ -1,5 +1,5 @@
 class Observable:
-    def __index__(self):
+    def __init__(self):
         self.observers = []
 
     def register(self, observer):
