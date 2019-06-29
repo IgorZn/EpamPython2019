@@ -49,3 +49,15 @@ Dear John, there is new playlist on 'All about dogs' channel: 'Dogs nutrition'
 Dear Erica, there is new playlist on 'All about dogs' channel: 'Dogs nutrition'
 
 """
+
+
+class MyTubeUser:
+    def __init__(self, name):
+        self._name = name
+
+    def update(self):
+        pass
+
+
+class YoutubeChannel:
+    pass

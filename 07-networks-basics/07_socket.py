@@ -3,7 +3,7 @@ import socket
 import threading
 
 class Server:
-    IP = '127.0.0.1'    # IP на котором будет рабобтать сервер
+    IP = '127.0.0.1'    # IP на котором будет работать сервер
     PORT = 2042         # порт для сервера
     HEADER_LENGTH = 1024    # длина сообщения (макс)
 
@@ -12,7 +12,7 @@ class Server:
 
     def __init__(self):
         self.sock.bind((self.IP, self.PORT))    # запускаем сокет на ИП и порт
-        self.sock.listen(1)     # колличество подключений
+        self.sock.listen(1)     # количество подключений
 
     def handler(self, conn, addr):
         """
@@ -37,7 +37,7 @@ class Server:
         :return:
         """
         while True:
-            conn, addr = self.sock.accept() # ождиать соединения с клиентом
+            conn, addr = self.sock.accept() # ожидать соединения с клиентом
             serverThread = threading.Thread(target=self.handler, args=(conn, addr))
             serverThread.daemon = True
             serverThread.start()
