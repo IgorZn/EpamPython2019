@@ -55,9 +55,48 @@ class MyTubeUser:
     def __init__(self, name):
         self._name = name
 
-    def update(self):
-        pass
+    def update_video(self, message):
+        print(f'Dear {self.name}, got message:\t {message}')
+
+    def update_playlist(self, message):
+        print(f'Dear {self.name}, there is new playlist on : {message}')
 
 
 class YoutubeChannel:
-    pass
+    def __init__(self, channel_name, chanel_owner):
+        self.subscribers = dict()
+        self._channel_name = channel_name
+        self._chanel_owner = chanel_owner
+
+    def subscribe(self, who, callback=None):
+        if callback is None:
+            callback = getattr(who, 'update')
+
+        self.subscribers[who] = callback
+
+    def publish_video(self, video):
+        for subscriber, callback in self.subscribers.items():
+            callback(video)
+
+    def publish_playlist(self, playlist):
+        for subscriber, callback in self.subscribers.items():
+            callback(playlist)
+
+
+
+
+matt = MyTubeUser('Matt')
+john = MyTubeUser('John')
+erica = MyTubeUser('Erica')
+
+dogs_life = YoutubeChannel('All about dogs', matt)
+dogs_life.subscribe(john)
+dogs_life.subscribe(erica)
+
+dogs_nutrition_videos = ['What do dogs eat?', 'Which Pedigree pack to choose?']
+dogs_nutrition_playlist = {'Dogs nutrition': dogs_nutrition_videos}
+
+for video in dogs_nutrition_videos:
+    dogs_life.publish_video(video)
+
+dogs_life.publish_playlist(dogs_nutrition_playlist)
