@@ -49,6 +49,7 @@ Dear John, there is new playlist on 'All about dogs' channel: 'Dogs nutrition'
 Dear Erica, there is new playlist on 'All about dogs' channel: 'Dogs nutrition'
 
 """
+from collections import namedtuple
 
 
 class MyTubeUser:
@@ -59,31 +60,33 @@ class MyTubeUser:
         print(f'Dear {self._name}, there is new video on \'{channel_name}\' channel: \'{message}\'')
 
     def update_playlist(self, message, channel_name=None):
-        if isinstance(message, dict):
-            message = list(message.keys())[0]
+        if isinstance(message, dict) and len(message) >= 1:
+            message = list(message)[0]
         print(f'Dear {self._name}, there is new playlist on : \'{channel_name}\' channel: \'{message}\'')
 
 
 class YoutubeChannel:
     def __init__(self, channel_name, chanel_owner):
-        self.subscribers = dict()
+        self.subscribers = {}
         self._channel_name = channel_name
         self._chanel_owner = chanel_owner
 
     def subscribe(self, who, callback=None):
+        Callback = namedtuple('Callback', ['video', 'playlist'])
+
         if callback is None:
                 callback_video = getattr(who, 'update_video')
                 callback_playlist = getattr(who, 'update_playlist')
 
-        self.subscribers[who] = [callback_video, callback_playlist]
+        self.subscribers[who] = Callback(callback_video, callback_playlist)
 
-    def publish_video(self, video):
-        for subscriber, callback in self.subscribers.items():
-            callback[0](video, channel_name=self._channel_name)
+    def publish_video(self, message):
+        for _, callback in self.subscribers.items():
+            callback.video(message, channel_name=self._channel_name)
 
-    def publish_playlist(self, playlist):
-        for subscriber, callback in self.subscribers.items():
-            callback[1](playlist, channel_name=self._channel_name)
+    def publish_playlist(self, message):
+        for _, callback in self.subscribers.items():
+            callback.playlist(message, channel_name=self._channel_name)
 
 
 
