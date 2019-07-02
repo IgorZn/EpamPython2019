@@ -55,11 +55,13 @@ class MyTubeUser:
     def __init__(self, name):
         self._name = name
 
-    def update_video(self, message):
-        print(f'Dear {self.name}, got message:\t {message}')
+    def update_video(self, message, channel_name=None):
+        print(f'Dear {self._name}, there is new video on \'{channel_name}\' channel: \'{message}\'')
 
-    def update_playlist(self, message):
-        print(f'Dear {self.name}, there is new playlist on : {message}')
+    def update_playlist(self, message, channel_name=None):
+        if isinstance(message, dict):
+            message = list(message.keys())[0]
+        print(f'Dear {self._name}, there is new playlist on : \'{channel_name}\' channel: \'{message}\'')
 
 
 class YoutubeChannel:
@@ -70,17 +72,18 @@ class YoutubeChannel:
 
     def subscribe(self, who, callback=None):
         if callback is None:
-            callback = getattr(who, 'update')
+                callback_video = getattr(who, 'update_video')
+                callback_playlist = getattr(who, 'update_playlist')
 
-        self.subscribers[who] = callback
+        self.subscribers[who] = [callback_video, callback_playlist]
 
     def publish_video(self, video):
         for subscriber, callback in self.subscribers.items():
-            callback(video)
+            callback[0](video, channel_name=self._channel_name)
 
     def publish_playlist(self, playlist):
         for subscriber, callback in self.subscribers.items():
-            callback(playlist)
+            callback[1](playlist, channel_name=self._channel_name)
 
 
 
