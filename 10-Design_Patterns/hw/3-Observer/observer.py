@@ -75,8 +75,8 @@ class YoutubeChannel:
         Callback = namedtuple('Callback', ['video', 'playlist'])
 
         if callback is None:
-                callback_video = getattr(who, 'update_video')
-                callback_playlist = getattr(who, 'update_playlist')
+            callback_video = getattr(who, 'update_video')
+            callback_playlist = getattr(who, 'update_playlist')
 
         self.subscribers[who] = Callback(callback_video, callback_playlist)
 
