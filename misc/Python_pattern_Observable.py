@@ -32,3 +32,14 @@ class AmericanStockMarket(Observer):
 class EuropeanStockMarket(Observer):
     def update(self, *args, **kwargs):
         print("European stock market received: {0}\n{1}".format(args, kwargs))
+
+
+# >>> from observer import observable, Americanstockmarket, Europeanstockmarket
+# >>> really_big_company = observable()
+# >>> american_observer = Americanstockmarket()
+# >>> really_big_company.register(american_observer)
+# >>> european_observer = Europeanstockmarket()
+# >>> really_big_company.register(european_observer)
+# >>> really_big_company.update_observers('important_update, msg='CEO unexpectedly resigns')
+# American stock market received: ('important_update',) cmsg': 'CEO unexpectedly resigns'}
+# European stock market received: ('important_update',) rmsg': 'CEO unexpectedly resigns'}

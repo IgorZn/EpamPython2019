@@ -17,17 +17,11 @@ class Eggs:
         if count == 2:
             return "Яйцо отборное кат. С0, в количестве ДВУХ шт. готовы стать частью блинов!"
 
-    def err(self):
-        print(f'Нехватает {__class__.__name__}')
-
 
 class Flour:
     def handle(self, count):
         if count == 300:
             return "300 муки есть!"
-
-    def err(self):
-        print(f'Нехватает {__class__.__name__}')
 
 
 class Milk:
@@ -35,34 +29,25 @@ class Milk:
         if count == 500:
             return "500 мл молочка есть!"
 
-    def err(self):
-        print(f'Нехватает {__class__.__name__}')
-
 
 class Sugar:
     def handle(self, count):
         if count == 100:
             return "100 сахарку в ниличие!"
 
-    def err(self):
-        print(f'Нехватает {__class__.__name__}')
 
 
 class SunOil:
     def handle(self, count):
         if count == 10:
             return "10 мл подсолнечного масла есть."
-        else:
-            print(f'Нехватает {__class__.__name__}')
+
 
 
 class Butter:
     def handle(self, count):
         if count == 10:
             return "10 гр масла есть."
-
-    def err(self):
-        print(f'Нехватает {__class__.__name__}')
 
 
 class Blin:
