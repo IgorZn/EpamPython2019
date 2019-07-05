@@ -56,5 +56,5 @@ def get_factory(ident):
         return ConcreteFactory2()
 
 factory = get_factory(1)
-print factory.create_drink()  # Pepsi
-print factory.create_food()  # Cheeseburger
+print(factory.create_drink())   # Pepsi
+print(factory.create_food())    # Cheeseburger
