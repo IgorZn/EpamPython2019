@@ -18,6 +18,7 @@ weekday = calendar.day_name[date.weekday()]
 with open('menu.yml', encoding='utf-8') as m:
     menu = yaml.safe_load(m)
 
+# print(menu)
 
 class AbstractFactory:
     def get_lunch(self):
@@ -27,89 +28,104 @@ class AbstractFactory:
 class Monday:
     def __init__(self, type, for_whom, drink):
         self._menu = menu
-        self._lunch = self._menu[super().__class__.__name__][type][for_whom]
-        self._drink = self._menu[super().__class__.__name__][drink]
+        self._lunch = self._menu[self.__class__.__name__][type][for_whom]
+        self._drink = self._menu[self.__class__.__name__]['drinks'][drink]
 
     def __str__(self):
-        return self._lunch
+        return '\n\t' + self._lunch + '. ' + self._drink
 
 class Tuesday:
-    def __init__(self, type, for_whom):
+    def __init__(self, type, for_whom, drink):
         self._menu = menu
-        self._lunch = self._menu[super().__class__.__name__][type][for_whom]
+        self._lunch = self._menu[self.__class__.__name__][type][for_whom]
+        self._drink = self._menu[self.__class__.__name__]['drinks'][drink]
 
     def __str__(self):
-        return self._lunch
+        return '\n\t' + self._lunch + '. ' + self._drink
 
 class Wednesday:
-    def __init__(self, type, for_whom):
+    def __init__(self, type, for_whom, drink):
         self._menu = menu
-        self._lunch = self._menu[super().__class__.__name__][type][for_whom]
+        self._lunch = self._menu[self.__class__.__name__][type][for_whom]
+        self._drink = self._menu[self.__class__.__name__]['drinks'][drink]
 
     def __str__(self):
-        return self._lunch
+        return '\n\t' + self._lunch + '. ' + self._drink
 
 class Thursday:
-    def __init__(self, type, for_whom):
+    def __init__(self, type, for_whom, drink):
         self._menu = menu
-        self._lunch = self._menu[super().__class__.__name__][type][for_whom]
+        self._lunch = self._menu[self.__class__.__name__][type][for_whom]
+        self._drink = self._menu[self.__class__.__name__]['drinks'][drink]
 
     def __str__(self):
-        return self._lunch
+        return '\n\t' + self._lunch + '. ' + self._drink
 
 class Friday:
-    def __init__(self, type, for_whom):
+    def __init__(self, type, for_whom, drink):
         self._menu = menu
-        self._lunch = self._menu[super().__class__.__name__][type][for_whom]
+        self._lunch = self._menu[self.__class__.__name__][type][for_whom]
+        self._drink = self._menu[self.__class__.__name__]['drinks'][drink]
 
     def __str__(self):
-        return self._lunch
+        return '\n\t' + self._lunch + '. ' + self._drink
 
 class Saturday:
-    def __init__(self, type, for_whom):
+    def __init__(self, type, for_whom, drink):
         self._menu = menu
-        self._lunch = self._menu[super().__class__.__name__][type][for_whom]
+        self._lunch = self._menu[self.__class__.__name__][type][for_whom]
+        self._drink = self._menu[self.__class__.__name__]['drinks'][drink]
 
     def __str__(self):
-        return self._lunch
+        return '\n\t' + self._lunch + '. ' + self._drink
 
 class Sunday:
-    def __init__(self, type, for_whom):
+    def __init__(self, type, for_whom, drink):
         self._menu = menu
-        self._lunch = self._menu[super().__class__.__name__][type][for_whom]
+        self._lunch = self._menu[self.__class__.__name__][type][for_whom]
+        self._drink = self._menu[self.__class__.__name__]['drinks'][drink]
 
     def __str__(self):
-        return self._lunch
+        return '\n\t' + self._lunch + '. ' + self._drink
 
 
 class LunchFactory(AbstractFactory):
     def get_lunch(self):
         print(f'Today is {weekday} and we have two set lunchs: first, second and drinks, dishes: for vegan, child and china')
-        number = input('Select first or second set lunch. Type 1 or 2: ')
-        for_whom = input('Type of food vegan, child or china. Type 1, 2 or 3: ')
-        drinks = input('Drinks for vegan, child or china. Type 1, 2 or 3: ')
+        number = int(input('Select first or second set lunch. Type 1 or 2: '))-1
+        for_whom = input('Type of food vegan, child or china. Type vegan, child or china: ')
+        drink = input('Drinks for vegan, child or china. Type vegan, child or china: ')
+
+        menus = ['first_courses', 'second_courses']
+
 
         if weekday == 'Monday':
-            return Monday('Hamburger')
+            return Saturday(menus[number], for_whom, drink)
+
         if weekday == 'Tuesday':
-            return Monday('Hamburger')
+            return Saturday(menus[number], for_whom, drink)
+
         if weekday == 'Wednesday':
-            return Monday('Hamburger')
+            return Saturday(menus[number], for_whom, drink)
+
         if weekday == 'Thursday':
-            return Monday('Hamburger')
+            return Saturday(menus[number], for_whom, drink)
+
         if weekday == 'Friday':
-            return Monday('Hamburger')
+            return Saturday(menus[number], for_whom, drink)
+
         if weekday == 'Saturday':
-            return Monday('Hamburger')
+            return Saturday(menus[number], for_whom, drink)
+
         if weekday == 'Sunday':
-            return Monday('Hamburger')
+            return Saturday(menus[number], for_whom, drink)
 
 
 if __name__ == '__main__':
+    factory = LunchFactory()
+    print(f'\nСегодня {weekday}\nА вот и ваш обед:', factory.get_lunch())
 
 
 
 
 
-    print(factory.create_drink())   # Pepsi
-    print(factory.create_food())    # Cheeseburger

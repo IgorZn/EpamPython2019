@@ -148,7 +148,7 @@ if __name__ == '__main__':
     for root, dirs, files in contents_generator:
         contents.append((root, dirs, files))
 
-    folder1 = PrintableFolder(project_path, contents)
+    folder1 = PrintableFolder('.', contents)
     print(folder1)
     file1 = PrintableFile('task1.py')
     print(file1 in folder1)
