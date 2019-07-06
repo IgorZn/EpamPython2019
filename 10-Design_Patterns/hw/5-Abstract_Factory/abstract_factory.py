@@ -25,9 +25,10 @@ class AbstractFactory:
 
 
 class Monday:
-    def __init__(self, type, for_whom):
+    def __init__(self, type, for_whom, drink):
         self._menu = menu
         self._lunch = self._menu[super().__class__.__name__][type][for_whom]
+        self._drink = self._menu[super().__class__.__name__][drink]
 
     def __str__(self):
         return self._lunch
@@ -84,9 +85,9 @@ class Sunday:
 class LunchFactory(AbstractFactory):
     def get_lunch(self):
         print(f'Today is {weekday} and we have two set lunchs: first, second and drinks, dishes: for vegan, child and china')
-        number = input('Select first or second set lunch: ')
-        for_whom = input('Type of food vegan, child or china: ')
-        drinks = input('Drinks for vegan, child or china: ')
+        number = input('Select first or second set lunch. Type 1 or 2: ')
+        for_whom = input('Type of food vegan, child or china. Type 1, 2 or 3: ')
+        drinks = input('Drinks for vegan, child or china. Type 1, 2 or 3: ')
 
         if weekday == 'Monday':
             return Monday('Hamburger')
